@@ -32,7 +32,7 @@ const Section_1: React.FC = () => {
       {/* Image for Desktop Layout */}
       <div className="hidden lg:flex lg:w-[50%] h-auto items-start justify-end relative">
         <img
-          src="/public/images/forms/form-section-1-1.png"
+          src="/images/forms/form-section-1-1.png"
           alt="Solar Panel Installation"
           className="relative z-10 w-auto h-auto"
         />
