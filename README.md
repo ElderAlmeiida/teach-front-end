@@ -1,50 +1,61 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Soller Dev Team Test
 
-Currently, two official plugins are available:
+## Overview
+Soller Dev Team Test is a React Single Page Application (SPA) designed to showcase a solar panel installation service. This project emphasizes responsive design and provides a user-friendly interface to request quotes for solar panel installations.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+- Responsive layout for various screen sizes
+- Interactive components for user engagement
+- Utilizes Vite for fast development and builds
+- TypeScript for type safety
 
-## Expanding the ESLint configuration
+## Installation
+To set up the project locally, follow these steps:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/soller-dev-team-test.git
+   cd soller-dev-team-test
+   ```
+2. Install the dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Build
+To create a production build of the application, run:
+```bash
+npm run build
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Deployment
+To deploy the application, you can use Render. Here are the steps:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+1. Create a new static site on Render.
+2. Connect your GitHub repository.
+3. Set the build command to:
+   ```bash
+   npm install && npm run build
+   ```
+4. Set the publish directory to:
+   ```bash
+   build
+   ```
+5. Configure the root directory if needed, typically it can be left blank for static sites.
+6. Click "Deploy" to start the process.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## Usage
+Once the application is running, you can visit `http://localhost:3000` in your browser. The homepage will provide options to learn more about solar panel installations and request quotes.
+
+## Troubleshooting
+If you encounter any issues during deployment or while running the app, check the following:
+- Ensure that all paths to assets (like images) are correct.
+- Review the console and server logs for error messages.
+
+## License
+This project is licensed under the MIT License.
