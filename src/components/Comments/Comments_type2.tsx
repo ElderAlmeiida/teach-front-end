@@ -101,7 +101,7 @@ const Comments_type2: React.FC = () => {
           className="bg-transparent p-4"
           aria-label="Previous Comment"
         >
-          <img src="/public/icons/Button-Left.svg" alt="Previous" />
+          <img src="/icons/Button-Left.svg" alt="Previous" />
         </button>
 
         <button
@@ -109,7 +109,7 @@ const Comments_type2: React.FC = () => {
           className="bg-transparent"
           aria-label="Next Comment"
         >
-          <img src="/public/icons/Button-Right.svg" alt="Next" />
+          <img src="/icons/Button-Right.svg" alt="Next" />
         </button>
       </div>
     </div>
