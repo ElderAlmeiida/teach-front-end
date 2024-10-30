@@ -100,7 +100,7 @@ const Section_4: React.FC = () => {
       {/* Setor direito - Imagens */}
       <div className="relative flex justify-end items-start lg:pr-0 custom:pr-0">
         <motion.img
-          src="/public/images/forms/form-section-4-1.png"
+          src="/images/forms/form-section-4-1.png"
           alt="Illustration of personalized services offered"
           className="w-[80%] lg:w-[70%] custom:w-[auto] h-auto " // Ajuste no tamanho da imagem
           initial={{ opacity: 0, x: 20 }}
@@ -110,7 +110,7 @@ const Section_4: React.FC = () => {
 
         {/* Segunda Imagem sobreposta com efeitos apenas nesta imagem */}
         <motion.img
-          src="/public/images/forms/form-section-4-2.png"
+          src="/images/forms/form-section-4-2.png"
           alt="Illustration of services in action"
           className="absolute top-[200px] lg:top-[270px] left-[30%] lg:left-[38%] w-[50%] lg:w-[50%] h-auto custom:w-[70%] custom:left-[15%] " // Ajuste no tamanho e posicionamento
           initial={{ opacity: 0, x: 20 }}

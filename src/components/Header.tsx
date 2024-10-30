@@ -36,7 +36,7 @@ const Header: React.FC = () => {
         {/* Contact information and button for desktop */}
         <div className="hidden md:flex items-center justify-end space-x-[40px]">
           <span className="flex items-center text-s font-medium text-blue">
-            <img src="/public/icons/headset.svg" alt="Headphones Icon" className="mr-4" />
+            <img src="/icons/headset.svg" alt="Headphones Icon" className="mr-4" />
             <span>555 818 282</span>
           </span>
           <Button_2>Request a Quote</Button_2>

@@ -40,7 +40,7 @@ const Section_6: React.FC = () => {
         {/* Background image behind the button */}
         <div className="absolute top-[420px] -ml-12 rotate-180 right-0 lg:rotate-0 lg:-top-20 lg:-right-32 lg:z-0 lg:scale-100">
           <img
-            src="/public/images/forms/form-section-6-1.png"
+            src="/images/forms/form-section-6-1.png"
             alt="Circle Background Image"
             className="max-w-full h-auto"
           />
@@ -99,7 +99,7 @@ const Section_6: React.FC = () => {
         transition={{ duration: 0.5, delay: 1.5 }}
       >
         <img
-          src="/public/images/forms/form-section-6-2.png"
+          src="/images/forms/form-section-6-2.png"
           alt="Central Image"
           className="lg:max-w-[full] lg:h-auto"
         />

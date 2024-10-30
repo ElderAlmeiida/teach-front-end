@@ -46,7 +46,7 @@ const Section_3: React.FC = () => {
       <div className="relative lg:w-[auto] custom:w-[300px]">
         {/* First service image */}
         <motion.img 
-          src="/public/images/forms/form-section-3-1.png" 
+          src="/images/forms/form-section-3-1.png" 
           alt="Service Image 1" 
           initial={{ x: '-100%', opacity: 0 }} // Initial position off-screen to the left
           animate={isVisible ? { x: 0, opacity: 1 } : {}} // Final position when visible
@@ -55,7 +55,7 @@ const Section_3: React.FC = () => {
 
         {/* Second service image overlayed with effects */}
         <motion.img 
-          src="/public/images/forms/form-section-3-2.png" 
+          src="/images/forms/form-section-3-2.png" 
           alt="Service Image 2" 
           className="lg:absolute lg:top-[69px] lg:left-[85px] lg:w-[auto] custom:absolute custom:top-[100px] custom:left-[30px] custom:w-[220px] " 
           initial={{ y: '-50%', opacity: 0 }} // Initial position above

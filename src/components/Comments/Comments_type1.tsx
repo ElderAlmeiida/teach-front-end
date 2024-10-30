@@ -11,25 +11,25 @@ interface Comment {
 // List of comments
 const comments: Comment[] = [
   {
-    image: '/public/images/image-users/User Thumb.png',
+    image: '/images/image-users/User Thumb.png',
     name: 'Rwanda Melflor',
     site: 'zerowaste.com',
     quote: 'Viverra viverra nibh enim et aliquam, enim. Tempor, sit mus viverra orci dui consequat turpis scelerisque faucibus.',
   },
   {
-    image: '/public/images/image-users/User Thumb 2.png',
+    image: '/images/image-users/User Thumb 2.png',
     name: 'Jane Cooper',
     site: '10KWh.com',
     quote: 'Purus maecenas quis elit eu, aliquet. Tellus porttitor ut sollicitudin sit non fringilla.',
   },
   {
-    image: '/public/images/image-users/User Thumb 3.png',
+    image: '/images/image-users/User Thumb 3.png',
     name: 'Ralph Edwards',
     site: 'j32KWh.org',
     quote: 'Vehicula sit sit pharetra bibendum ut risus accumsan. Purus, in metus, enim, ipsum morbi euismod pellentesque.',
   },
   {
-    image: '/public/images/image-users/User Thumb 4.png',
+    image: '/images/image-users/User Thumb 4.png',
     name: 'Cameron Williamson',
     site: '12KWh.org',
     quote: 'Hendrerit augue ut nec, senectus quis integer netus. Sagittis fusce rhoncus magnis habitant amet amet.',

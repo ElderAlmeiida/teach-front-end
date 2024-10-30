@@ -56,7 +56,7 @@ const Section_2: React.FC = () => {
           }`}
         >
           <img 
-            src="/public/images/forms/form-section-2-1.png" 
+            src="/images/forms/form-section-2-1.png" 
             alt="Solar Left"
             className="w-[249.86px] h-[250.22px] lg:w-[auto] lg:h-[auto]"
           />
@@ -69,7 +69,7 @@ const Section_2: React.FC = () => {
           }`}
         >
           <img 
-            src="/public/images/forms/form-section-2-2.png" 
+            src="/images/forms/form-section-2-2.png" 
             alt="Solar Right"
             className="w-[249.86px] h-[250.22px] lg:w-[auto] lg:h-[auto] sm:mt-[]"
           />
@@ -82,7 +82,7 @@ const Section_2: React.FC = () => {
           }`}
         >
           <img 
-            src="/public/images/Desktop.png"	 
+            src="/images/Desktop.png"	 
             alt="Solar Center"
             className="relative z-10" // Ajustado para que a imagem fique atrás
           />
