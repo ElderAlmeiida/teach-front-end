@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Meta, StoryFn } from '@storybook/react';
 import Section_4 from './Section_4';
 

@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Meta, StoryFn } from '@storybook/react';
 import Section2 from './Section_2'; // O caminho para seu componente Section1
 

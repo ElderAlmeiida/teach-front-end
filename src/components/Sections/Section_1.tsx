@@ -26,7 +26,7 @@ const Section_1: React.FC = () => {
         </div>
 
         {/* Comments Section - Maintains responsiveness */}
-        <Comments_type1 className="w-full lg:w-auto mt-4 lg:mt-0" />
+        <Comments_type1 />
       </div>
 
       {/* Image for Desktop Layout */}
