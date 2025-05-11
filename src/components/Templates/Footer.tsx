@@ -1,6 +1,5 @@
 import React from 'react';
 import { BsGlobe, BsUniversalAccessCircle } from 'react-icons/bs';
-import { LiaUniversalAccessSolid } from "react-icons/lia";
 import { MdEuro } from 'react-icons/md';
 
 const Footer: React.FC = () => {

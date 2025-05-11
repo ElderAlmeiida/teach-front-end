@@ -1,5 +1,3 @@
-// Section_1.jsx
-import React from 'react';
 import { PlayCircle } from "lucide-react";
 
 const Section_1 = () => {
