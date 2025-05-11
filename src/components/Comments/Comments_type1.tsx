@@ -1,80 +1,124 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useRef } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import '@fortawesome/fontawesome-svg-core/styles.css';
+import { config } from '@fortawesome/fontawesome-svg-core';
 
-// Interface for comments
-interface Comment {
-  image: string;
-  name: string;
-  site: string;
-  quote: string;
-}
+config.autoAddCss = false;
 
-// List of comments
-const comments: Comment[] = [
+const testimonials = [
   {
-    image: '/images/image-users/User Thumb.png',
-    name: 'Rwanda Melflor',
-    site: 'zerowaste.com',
-    quote: 'Viverra viverra nibh enim et aliquam, enim. Tempor, sit mus viverra orci dui consequat turpis scelerisque faucibus.',
+    text: 'Lacus vestibulum ultricies mi risus, duis non, volutpat nullam non. Magna congue nisi maecenas elit aliquet eu sed consectetur. Vitae quis cras vitae praesent morbi adipiscing purus consectetur mi.',
+    author: 'Hellen Jummy',
+    title: 'Financial Counselor',
+    image: 'https://res.cloudinary.com/diuvgclpk/image/upload/v1746913205/User_Thumb_5_tx9y5v.png',
   },
   {
-    image: '/images/image-users/User Thumb 2.png',
-    name: 'Jane Cooper',
-    site: '10KWh.com',
-    quote: 'Purus maecenas quis elit eu, aliquet. Tellus porttitor ut sollicitudin sit non fringilla.',
+    text: 'Odio rhoncus ornare ut quam. Molestie vel duis quis scelerisque ut id. In tortor turpis viverra sagittis ultricies nisi, nec tortor. Vestibulum, ultricies ultricies neque, hac ultricies dolor.',
+    author: 'Ralph Edwards',
+    title: 'Math Teacher',
+    image: 'https://res.cloudinary.com/diuvgclpk/image/upload/v1746913185/User_Thumb_1_dm3xos.png',
   },
   {
-    image: '/images/image-users/User Thumb 3.png',
-    name: 'Ralph Edwards',
-    site: 'j32KWh.org',
-    quote: 'Vehicula sit sit pharetra bibendum ut risus accumsan. Purus, in metus, enim, ipsum morbi euismod pellentesque.',
+    text: 'Sagittis nunc egestas leo et malesuada urna risus. Morbi proin et cras aliquam. Diam tellus, amet hac imperdiet. Tellus mi volutpat tellus, congue malesuada sit nisl donec a.',
+    author: 'Helena John',
+    title: 'Psychology Student',
+    image: 'https://res.cloudinary.com/diuvgclpk/image/upload/v1746913185/User_Thumb_2_q2nq92.png',
   },
   {
-    image: '/images/image-users/User Thumb 4.png',
-    name: 'Cameron Williamson',
-    site: '12KWh.org',
-    quote: 'Hendrerit augue ut nec, senectus quis integer netus. Sagittis fusce rhoncus magnis habitant amet amet.',
+    text: 'Sed adipiscing diam donec adipiscing tristique risus nec feugiat. In hendrerit gravida rutrum quisque non tellus orci ac. Pellentesque sit amet porttitor eget dolor morbi non.',
+    author: 'John Smith',
+    title: 'Software Engineer',
+    image: 'https://res.cloudinary.com/diuvgclpk/image/upload/v1746913205/User_Thumb_5_tx9y5v.png',
   },
 ];
 
-// Comments component
-const CommentsType1: React.FC = React.memo(() => {
+type Testimonial = {
+  text: string;
+  author: string;
+  title: string;
+  image: string;
+};
+
+const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => (
+  <div className="bg-white border border-gray-200 rounded-[20px] p-6 min-w-[412px] max-w-[412px] h-[305px] shadow-md flex-shrink-0 flex flex-col justify-center items-left text-left">
+    <div className="mb-4">
+      <p className="text-gray-700 leading-relaxed">{testimonial.text}</p>
+    </div>
+    <div className="flex items-center space-x-4">
+      <img
+        src={testimonial.image}
+        alt={testimonial.author}
+        className="w-12 h-12 rounded-full object-cover"
+      />
+      <div>
+        <h4 className="text-gray-900 font-semibold">{testimonial.author}</h4>
+        <p className="text-gray-500 text-sm">{testimonial.title}</p>
+      </div>
+    </div>
+  </div>
+);
+
+const Comments_type1 = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [fade, setFade] = useState(true); // Controls fade transition
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  // Automatically change comment every 5 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setFade(false); // Start fading out current comment
-      setTimeout(() => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % comments.length);
-        setFade(true); // Start fading in next comment
-      }, 500); // Match the fade-out duration
-    }, 5000); // Change every 5 seconds
+  // Função para navegar para o próximo item com loop infinito
+  const goToNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
+    if (containerRef.current) {
+      containerRef.current.scrollTo({
+        left: (currentIndex + 1) * 412, // Deslocamento para o próximo card
+        behavior: 'smooth',
+      });
+    }
+  };
 
-    return () => clearInterval(interval); // Cleanup interval on unmount
-  }, []);
-
-  const currentComment = useMemo(() => comments[currentIndex], [currentIndex]); // Memoize current comment
+  // Função para navegar para o item anterior com loop infinito
+  const goToPrev = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length);
+    if (containerRef.current) {
+      containerRef.current.scrollTo({
+        left: (currentIndex - 1 + testimonials.length) * 412, // Deslocamento para o card anterior
+        behavior: 'smooth',
+      });
+    }
+  };
 
   return (
-    <div className="w-full sm:w-[600px] h-auto md:h-[302px] text-s p-4 md:p-0">
-      <p className={`mt-6 text-dark-blue transition-opacity duration-500 ${fade ? 'opacity-100' : 'opacity-0'} text-base md:text-lg`}>
-        “{currentComment.quote}”
-      </p>
-      <div className={`flex items-center mt-4 transition-opacity duration-500 ${fade ? 'opacity-100' : 'opacity-0'}`}>
-        <img
-          src={currentComment.image}
-          alt={`${currentComment.name} Thumbnail`}
-          className="w-10 h-10 md:w-12 md:h-12 rounded-full mr-3 md:mr-4"
-          loading="lazy" // Lazy loading of image
-        />
-        <div>
-          <p className="text-[16px] md:text-[18px] font-bold text-dark-blue">{currentComment.name}</p>
-          <p className="text-xs md:text-s text-[#475569] font-regular">{currentComment.site}</p>
+    <div className="py-12 bg-white">
+      <div className="w-full px-20 mx-auto">
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-5xl font-bolder text-gray-900">What everyone says</h2> {/* Ajuste para título */}
+          <div className="flex space-x-3">
+            <button
+              onClick={goToPrev}
+              className="bg-white border border-orange text-orange hover:bg-orange-100 rounded-full w-10 h-10 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-orange-500"
+            >
+              <FontAwesomeIcon icon={faChevronLeft} />
+            </button>
+            <button
+              onClick={goToNext}
+              className="bg-white border border-orange text-orange hover:bg-orange-100 rounded-full w-10 h-10 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-orange-500"
+            >
+              <FontAwesomeIcon icon={faChevronRight} />
+            </button>
+          </div>
+        </div>
+        <div
+          className="overflow-hidden flex space-x-6 py-4" // Ajustando para evitar a barra de rolagem
+          ref={containerRef}
+        >
+          {testimonials.concat(testimonials).map((testimonial, index) => ( // Concatenando os cards para loop
+            <div key={index} className="w-[412px] flex-shrink-0">
+              <TestimonialCard testimonial={testimonial} />
+            </div>
+          ))}
         </div>
       </div>
     </div>
   );
-});
+};
 
-export default CommentsType1;
+export default Comments_type1;
+

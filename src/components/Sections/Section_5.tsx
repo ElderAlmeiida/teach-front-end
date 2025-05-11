@@ -1,42 +1,138 @@
-import React from 'react';
-import Button_1 from '../Button';
-import Comments_type2 from '../Comments/Comments_type2';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 
-const Section_5: React.FC = () => {
+interface CounterProps {
+  start: number;
+  end: number;
+  duration: number;
+  onComplete: () => void;
+}
+
+const Counter: React.FC<CounterProps> = ({ start, end, duration, onComplete }) => {
+  const [count, setCount] = useState(start);
+  const frame = useRef(0);
+  const totalFrames = duration * 60;
+
+  useEffect(() => {
+    const animate = () => {
+      frame.current += 1;
+      const progress = Math.min(frame.current / totalFrames, 1);
+      const newVal = Math.floor(start + (end - start) * progress);
+      setCount(newVal);
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        onComplete();
+      }
+    };
+
+    requestAnimationFrame(animate);
+  }, [start, end, duration]);
+
+  return <span>{count.toLocaleString()}</span>;
+};
+
+interface StatisticItemProps {
+  imageUrl: string;
+  value: number;
+  label: string;
+  duration: number;
+  shouldShorten?: boolean;
+}
+
+const StatisticItem: React.FC<StatisticItemProps> = ({
+  imageUrl,
+  value,
+  label,
+  duration,
+  shouldShorten = false
+}) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [hasEnded, setHasEnded] = useState(false);
+  const itemRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      });
+    });
+
+    if (itemRef.current) observer.observe(itemRef.current);
+
+    return () => {
+      if (itemRef.current) observer.unobserve(itemRef.current);
+    };
+  }, []);
+
+  const formatShort = (val: number) => {
+    if (val >= 1_000_000) return `${Math.floor(val / 1_000_000)}M`;
+    if (val >= 1_000) return `${Math.floor(val / 1_000)}K`;
+    return val.toString();
+  };
+
   return (
-    <div className="bg-dark-purple lg:grid-rows-2 lg:w-full lg:h-auto items-center lg:pl-20 lg:pt-20 relative">
-      <div className="grid grid-cols-1 lg:grid-cols-2 lg:items-start lg:text-left custom:items-center custom:text-center relative z-10 px-4 lg:px-0"> {/* Responsive grid adjustment */}
-        
-        {/* Content container with centered text */}
-        <div className="flex flex-col w-full h-auto p-3 lg:mb-20 sm:mb-4 items-center text-center lg:items-start lg:text-left"> {/* Center text on mobile and adjust alignment on larger screens */}
-          <p className="text-yellow lg:text-m lg:font-medium leading-[30px] custom:text-s">
-            Join other Sun harvesters
-          </p>
-          <h2 className="text-white lg:text-xl custom:text-mobile-h1 font-bolder leading-[61.6px] font-roboto">
-            Make something awesome
-          </h2>
-          <p className="text-white lg:text-left lg:text-[18px] custom:text-s font-regular pt-4 font-roboto">
-            Dui euismod iaculis libero, aliquet vitae et elementum porttitor. Eleifend mi tristique condimentum congue fusce nunc, donec magnis commodo.
-          </p>
-        </div>
-
-        <div className="flex flex-col items-center justify-center w-full h-auto lg:ml-16 custom:ml-1 lg:pt-12 custom:pt-4"> {/* Adjust width and padding */}
-          <div>
-            <Button_1>
-              Request a Quote
-            </Button_1>
-          </div>
-        </div>
+    <div ref={itemRef} className="text-center">
+      <div className="flex justify-center mb-2">
+        <img src={imageUrl} alt={label} className="w-10 h-10" />
       </div>
-
-      <div className="flex justify-center relative z-10 pr-0 lg:pr-56"> {/* Adjust right padding */}
-        <Comments_type2 />
-      </div>
+      <motion.div style={{ fontSize: '2em', fontWeight: 'bold' }}>
+        {isVisible && !hasEnded && (
+          <Counter
+            start={0}
+            end={value}
+            duration={duration}
+            onComplete={() => setHasEnded(true)}
+          />
+        )}
+        {isVisible && hasEnded && shouldShorten && <span>{formatShort(value)}</span>}
+        {isVisible && hasEnded && !shouldShorten && <span>{value.toLocaleString()}</span>}
+      </motion.div>
+      <p className="text-sm">{label}</p>
     </div>
   );
 };
 
-export default Section_5;
+const AnimatedStatistics: React.FC = () => {
+  return (
+    <div className="bg-dark-blue text-yellow py-12 flex flex-col md:flex-row text-mobile-h1 justify-around items-center  gap-6">
+
+      <StatisticItem
+        imageUrl="https://res.cloudinary.com/diuvgclpk/image/upload/v1746915100/Vector_f2p6ak.png"
+        value={195}
+        label="user countries"
+        duration={2}
+      />
+      <StatisticItem
+        imageUrl="https://res.cloudinary.com/diuvgclpk/image/upload/v1746915089/diamond_wixg2h.png"
+        value={1_000_000}
+        label="valued teachers"
+        duration={3}
+        shouldShorten={true}
+      />
+      <StatisticItem
+        imageUrl="https://res.cloudinary.com/diuvgclpk/image/upload/v1746915027/Icon_1_iazetw.png"
+        value={17_000_000}
+        label="happy students"
+        duration={4}
+        shouldShorten={true}
+      />
+    </div>
+  );
+};
+
+export default AnimatedStatistics;
+
+
+
+
+
+
+
 
 
 

@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
-import { FaCheck } from 'react-icons/fa';
 
-const Section_3: React.FC = () => {
+const Section_7: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [blockVisible, setBlockVisible] = useState(Array(4).fill(false));
 
@@ -58,36 +57,26 @@ const Section_3: React.FC = () => {
   }, [isVisible]);
 
   return (
-    <section ref={sectionRef} className="lg:grid lg:grid-cols-2 mt-12 pb-24 w-[auto]">
-      <div className="flex flex-col lg:pt-52 lg:pl-20 lg:pr-0 custom:p-4 ">
-        <div className="mb-8 lg:text-left w-[550px] custom:text-center relative">
-        
+    <section ref={sectionRef} className="lg:grid lg:grid-cols-2 mt-12 pb-24 custom:w-[auto]">
+      <div className="flex flex-col lg:pt-52 lg:pl-20 lg:pr-0 custom:p-4">
+        <div className="mb-8 lg:text-left custom:text-center relative">
+          <span className="lg:text-left text-m font-medium">System features</span>
           <h1 className="text-dark-blue font-bold lg:text-xl custom:text-mobile-h1 mt--2 relative">
-               An{' '}
+            All the cool{' '}
             <span className="inline-block relative">
               <img
                 src="https://res.cloudinary.com/diuvgclpk/image/upload/v1746910043/Vector_14_b6wsqo.png"
                 alt="Marcação laranja"
                 className="absolute inset-x-0 bottom-0 w-full h-6 z-0"
               />
-              all-in-one 
+              features
             </span>
-            &nbsp; app  that makes it easier
           </h1>
-          <p className="mt-4 text-dark-blue font-regular text-m text-left w-[600px] flex items-center">
-              <FaCheck className="mr-2 text-green-500" />
-              Est et in pharetra magna adipiscing ornare aliquam.
-            </p>
-            <p className="mt-4 text-dark-blue font-regular text-m text-left w-[600px] flex items-center">
-              <FaCheck className="mr-2 text-green-500" />
-              Tellus arcu sed consequat ac velit ut eu blandit.
-            </p>
-            <p className="mt-4 text-dark-blue font-regular text-m text-left w-[600px] flex items-center">
-              <FaCheck className="mr-2 text-green-500" />
-              Ullamcorper ornare in et egestas dolor orci.
-            </p>
+          <p className="mt-4 text-dark-blue font-regular text-m text-left w-[600px]">
+          Mauris consequat, cursus pharetra et, habitasse rhoncus quis odio ac. In et dolor eu donec maecenas nulla. Cum sed orci, sit pellentesque quisque feugiat cras ullamcorper. Ultrices in amet, ullamcorper non viverra a, neque orci.
+          </p>
           <button className="mt-6 text-blue font-medium flex items-center gap-2 lg:justify-start custom:justify-center">
-          Find more about the app
+            View all the features
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
               <path
                 fillRule="evenodd"
@@ -115,31 +104,23 @@ const Section_3: React.FC = () => {
           y.set(0);
         }}
       >
-<motion.div className="relative w-full h-auto">
-  {/* Imagem de fundo */}
-  <img
-    src="https://res.cloudinary.com/diuvgclpk/image/upload/v1746910312/Blob_bgrxsa.png"
-    alt="Imagem de fundo"
-    className="absolute top-[50%] left-[35%] transform -translate-x-1/2 -translate-y-1/2 w-[506px] h-[448px] object-cover rounded-xl z-[-1]"  // Ajustado para centralizar e descer um pouco
-  />
-
-  {/* Imagem à frente */}
-  <motion.img
-    src="https://res.cloudinary.com/diuvgclpk/image/upload/v1746929020/Group_51_y8vah4.png"
-    alt="Conjunto de imagens com fundo e elementos sobrepostos"
-    className="w-[100%] lg:w-[100%] custom:w-[auto] h-auto rounded-xl"
-    initial={{ opacity: 0, x: 20, rotateX: 0, rotateY: 0 }}
-    animate={isVisible ? { opacity: 1, x: 0, rotateX: 0, rotateY: 0 } : {}}
-    transition={{ type: "spring", stiffness: 260, damping: 20, duration: 0.5 }}
-    style={{ rotateX, rotateY }}
-  />
-</motion.div>
-
-            </motion.div>
+        <motion.img
+          src="https://res.cloudinary.com/diuvgclpk/image/upload/v1746910664/Right_nhijk7.png"
+          alt="Conjunto de imagens com fundo e elementos sobrepostos"
+          className="w-[100%] lg:w-[100%] custom:w-[auto] h-auto rounded-xl"
+          initial={{ opacity: 0, x: 20, rotateX: 0, rotateY: 0 }}
+          animate={isVisible ? { opacity: 1, x: 0, rotateX: 0, rotateY: 0 } : {}}
+          transition={{ type: "spring", stiffness: 260, damping: 20, duration: 0.5 }}
+          style={{ rotateX, rotateY }}
+        />
+      </motion.div>
     </section>
   );
 };
-export default Section_3;
+
+export default Section_7;
+
+
 
 
 

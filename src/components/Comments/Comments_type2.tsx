@@ -1,122 +1,130 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-// Define the Comment interface to type-check the comment objects
-interface Comment {
-  image: string;  // URL of the user's image
-  name: string;   // Name of the user
-  site: string;   // Site or company of the user
-  quote: string;  // Quote from the user
-}
+const CommentsType2 = () => {
+  const commonImageUrl =
+    'https://res.cloudinary.com/diuvgclpk/image/upload/v1746925234/Col_2_jyyuam.png';
 
-// Array of comments to be displayed in the slideshow
-const comments: Comment[] = [
-  {
-    image: '/images/image-users/User Thumb.png',
-    name: 'Jane Cooper',
-    site: '10KWh',
-    quote: 'Purus maecenas quis elit eu, aliquet. Tellus porttitor ut sollicitudin sit non fringilla. Quam nunc volutpat senectus neque eget amet pharetra, euismod. Tempus, nunc, molestie imperdiet curabitur commodo euismod.',
-  },
-  {
-    image: '/images/image-users/User Thumb 2.png',
-    name: 'Ralph Edwards',
-    site: '32KWh',
-    quote: 'Vehicula sit sit pharetra bibendum ut risus accumsan. Purus, in metus, enim, ipsum morbi euismod pellentesque. Mattis pharetra accumsan eget est mi enim, id. Sit quam tortor eu tellus non, in euismod integer.',
-  },
-  {
-    image: '/images/image-users/User Thumb 3.png',
-    name: 'Courtney Henry',
-    site: '6KWh',
-    quote: 'Viverra lacus suspendisse elit, adipiscing orci, non turpis etiam sapien. Viverra blandit sem neque pretium. Duis enim semper fermentum consequat aenean libero. Blandit porta leo condimentum dolor, nisi, aliquet ante laoreet.',
-  },
-  {
-    image: '/images/image-users/User Thumb 4.png',
-    name: 'Cameron Williamson',
-    site: '12KWh',
-    quote: 'Hendrerit augue ut nec, senectus quis integer netus. Sagittis fusce rhoncus magnis habitant amet amet. Egestas amet habitasse amet risus tellus ornare. Hendrerit augue ut nec, senectus. Mauris egestas feugiat leo vitae praesent neque, et.',
-  }
-];
+  const commentsData = [
+    {
+      imageUrl: commonImageUrl,
+      quote:
+        'Id urna, nisl, ut quam. Diam suspendisse fringilla quam arcu mattis est velit in. Nibh in purus sit convallis phasellus ut. At vel erat ultricies commodo. Neque suspendisse a habitasse commodo.',
+      author: 'Marie Poirot',
+      company: 'Bigapp',
+    },
+    {
+      imageUrl: commonImageUrl,
+      quote:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      author: 'John Doe',
+      company: 'TechCorp',
+    },
+    {
+      imageUrl: commonImageUrl,
+      quote:
+        'A third comment with different content. Testing the slideshow effect and the wrapping of the text.',
+      author: 'Jane Smith',
+      company: 'WebDev Inc.',
+    },
+  ];
 
-// Main functional component for the comments slideshow
-const Comments_type2: React.FC = () => {
-  const [currentIndex, setCurrentIndex] = useState(0); // State for the current comment index
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024); // State to check if the device is mobile
+  const [currentCommentIndex, setCurrentCommentIndex] = useState(0);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Function to handle window resizing and update the isMobile state
-  const handleResize = () => {
-    setIsMobile(window.innerWidth < 1024);
-  };
-
-  // Effect to add and clean up the resize event listener
   useEffect(() => {
-    window.addEventListener('resize', handleResize);
+    intervalRef.current = setInterval(() => {
+      setCurrentCommentIndex((prevIndex) => (prevIndex + 1) % commentsData.length);
+    }, 5000);
     return () => {
-      window.removeEventListener('resize', handleResize);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
     };
-  }, []);
+  }, [commentsData.length]);
 
-  // Function to go to the next comment
-  const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % comments.length);
+  const containerVariants = {
+    hidden: { opacity: 0, x: 50 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.8, ease: 'easeInOut' },
+    },
+    exit: { opacity: 0, x: -50, transition: { duration: 0.5 } },
   };
 
-  // Function to go to the previous comment
-  const handlePrev = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + comments.length) % comments.length);
+  const nextSlide = () => {
+    setCurrentCommentIndex((prevIndex) => (prevIndex + 1) % commentsData.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentCommentIndex((prevIndex) =>
+      prevIndex === 0 ? commentsData.length - 1 : prevIndex - 1
+    );
   };
 
   return (
-    <div className="relative p-8 bg-purple-700 flex flex-col items-start">
-      <div className="flex space-x-4 overflow-hidden items-start">
-        {comments.map((comment, index) => (
-          <div
-            key={index} // Unique key for each comment
-            className={`transition-all duration-300 ease-in-out flex-shrink-0 ${
-              isMobile
-                ? (index === currentIndex ? 'w-[364px] h-[490px] border border-gray-300 opacity-100 rounded-lg' : 'hidden') // Show only the current comment in mobile view
-                : (index === currentIndex 
-                  ? 'w-[364px] h-[490px] border border-gray-300 opacity-100 rounded-lg' 
-                  : 'w-[364px] h-[442px] border border-gray-300 opacity-50 rounded-lg') // Adjust for inactive card size in desktop view
-            } bg-white p-6 shadow-lg flex flex-col items-start justify-center`}
-          >
-            <p className="text-dark-blue text-sm mb-8 text-left">“{comment.quote}”</p> {/* Quote text */}
-            <div className="flex items-center">
-              <img
-                src={comment.image}
-                alt={`${comment.name} Thumbnail`} // Alt text for the user's image
-                className="w-10 h-10 rounded-full mb-2"
-              />
-              <div className="ml-3">
-                <p className="text-sm font-bold text-dark-blue">{comment.name}</p> {/* User name */}
-                <p className="text-xs text-gray-500">{comment.site}</p> {/* User site */}
+    <div className="bg-yellow relative py-20 overflow-visible flex items-center justify-center">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentCommentIndex}
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          className="flex items-center justify-center relative w-full max-w-[1200px]"
+        >
+          {/* Texto */}
+          <div className="w-1/2 px-10 flex flex-col justify-center">
+            <p className="text-2xl text-darkblue italic mb-6 leading-relaxed">
+              {commentsData[currentCommentIndex].quote}
+            </p>
+            <div>
+              <div className="font-semibold text-2xl text-darkblue mb-1">
+                {commentsData[currentCommentIndex].author}
+              </div>
+              <div className="text-darkblue text-lg">
+                {commentsData[currentCommentIndex].company}
               </div>
             </div>
           </div>
-        ))}
-      </div>
 
-      {/* Navigation buttons for previous and next comments */}
-      <div className="flex mt-6 lg:justify-start custom:justify-center w-full">
-        <button
-          onClick={handlePrev} // Previous button handler
-          className="bg-transparent p-4"
-          aria-label="Previous Comment"
-        >
-          <img src="/dist/icons/Button-Left.svg" alt="Previous" />
-        </button>
+          {/* Imagem solta */}
+          <div className="relative w-[528px] h-[415px] z-10 translate-y-10">
+            {/* Forma azul escura */}
+            <div
+              className="absolute w-[550px] h-[435px] bg-darkblue rounded-[80px] transform rotate-[45deg] -z-10"
+              style={{ top: '50px', left: '30px' }}
+            />
+            {/* Imagem */}
+            <img
+              src={commentsData[currentCommentIndex].imageUrl}
+              alt={`Foto de ${commentsData[currentCommentIndex].author}`}
+              className="w-full h-full object-cover rounded-2xl"
+            />
+          </div>
+        </motion.div>
+      </AnimatePresence>
 
-        <button
-          onClick={handleNext} // Next button handler
-          className="bg-transparent"
-          aria-label="Next Comment"
-        >
-          <img src="/dist/icons/Button-Right.svg" alt="Next" />
-        </button>
-      </div>
+      {/* Botões de Navegação */}
+      <button
+        onClick={prevSlide}
+        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/50 hover:bg-white/70 text-darkblue font-bold py-2 px-3 rounded-full z-20 cursor-pointer"
+      >
+        <ChevronLeft className="h-6 w-6" />
+      </button>
+      <button
+        onClick={nextSlide}
+        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/50 hover:bg-white/70 text-darkblue font-bold py-2 px-3 rounded-full z-20 cursor-pointer"
+      >
+        <ChevronRight className="h-6 w-6" />
+      </button>
     </div>
   );
 };
 
-export default Comments_type2; // Export the component for use in other parts of the application
+export default CommentsType2;
 
 
 

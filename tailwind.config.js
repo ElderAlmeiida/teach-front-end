@@ -1,3 +1,5 @@
+const { small } = require('framer-motion/client');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -9,18 +11,19 @@ module.exports = {
       colors: {
         white: '#FFFFFF',
         'dark-purple': '#581C87',
-        blue: '#0369A1',
+        blue: '#2563EB',
         'dark-blue': '#0F172A',
         'east-bay': '#475569',
-        orange: '#D97706',
+        orange: '#EA580C',
         purple: '#7E22CE',
         'light-purple': '#A252EE',
         gold: '#FBBF24',
         'blue-light-1': '#E0F2FE',
         'blue-light-2': '#BFDBFE',
         'blue-light-3': '#93C5FD',
+        'blue-gray': '#E2E8F0',
         red: '#E11D48',
-        yellow: '#FCD34D',
+        yellow: '#FACC15',
         green: '#22C55E',
         'custom-brown': '#78350F', 
       },
@@ -39,6 +42,7 @@ module.exports = {
         'p': '1.125rem',  // 18px
       },
       fontWeight: {
+        small: 300,
         regular: 400,
         medium: 500,
         bold: 700,
